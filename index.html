@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regalo para Mama</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="app">
+        <section id="phase-box" class="phase phase-box" aria-label="Caja de regalo">
+            <div class="scene">
+                <div class="gift-box" role="button" aria-label="Caja de regalo interactiva">
+                    <div class="box-base">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face right"></div>
+                        <div class="face left"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                    <div class="box-lid">
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face right"></div>
+                        <div class="face left"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hint">
+                <p>Gira la caja con tu dedo</p>
+                <p>Toca para abrir</p>
+            </div>
+        </section>
+
+        <section id="album" class="phase phase-album" aria-hidden="true">
+            <div id="albumTrack" class="album-track">
+                <section id="albumEnd" class="album-panel end-panel">
+                    <div class="panel-content">
+                        <h2>Gracias por tu amor</h2>
+                        <p>Este regalo es solo el comienzo de todo lo que mereces.</p>
+                        <button id="finalBtn" class="final-btn" type="button">Pulsame, Mama</button>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
