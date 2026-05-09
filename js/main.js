@@ -3,45 +3,75 @@ import { initEffects } from "./effects.js";
 
 const albumTrack = document.getElementById("albumTrack");
 const albumEnd = document.getElementById("albumEnd");
-const finalBtn = document.getElementById("finalBtn");
 
 const memorySlides = [
 	{
-		title: "",
-		text: "",
-		image: "image/foto-1.jpg",
+		title: "El comienzo de todo",
+		text: "Gracias por traerme a este mundo, y por darme la dicha de ser tu hijo.",
+		image: "image/foto1.jpg",
 	},
 	{
-		title: "",
-		text: "",
-		image: "image/foto-2.jpg",
+		title: "No importa cuanto creza",
+		text: "Sin importar el tamaño o la edad que tenga, siempre sere tu bebe, tu niño, tu hijo.",
+		image: "image/foto2.jpg",
 	},
 	{
-		title: "",
-		text: "",
-		image: "image/foto-3.jpg",
+		title: "Mi mayor ejemplo",
+		text: "Eres el ejemplo de que todo es posible con esfuerzo y dedicanión. Gracias por enseñarme a nunca rendirme.",
+		image: "image/foto3.jpg",
 	},
 ];
 
+const ensureFinalButton = () => {
+	if (!albumTrack || !albumEnd) return null;
+	let button = document.getElementById("finalBtn");
+	if (!button) {
+		button = document.createElement("button");
+		button.id = "finalBtn";
+		button.className = "final-btn";
+		button.type = "button";
+		button.textContent = "Pulsame, Mama";
+	}
+	const panelContent = albumEnd.querySelector(".panel-content");
+	if (panelContent) {
+		panelContent.appendChild(button);
+	} else {
+		albumEnd.appendChild(button);
+	}
+	albumTrack.appendChild(albumEnd);
+	return button;
+};
+
 const createPanel = ({ title, text, image }) => {
+	if (!image) return null;
 	const panel = document.createElement("section");
 	panel.className = "album-panel";
 
 	const content = document.createElement("div");
 	content.className = "panel-content";
 
-	const heading = document.createElement("h2");
-	heading.textContent = title;
+	if (title) {
+		const heading = document.createElement("h2");
+		heading.textContent = title;
+		content.appendChild(heading);
+	}
 
-	const paragraph = document.createElement("p");
-	paragraph.textContent = text;
+	if (text) {
+		const paragraph = document.createElement("p");
+		paragraph.textContent = text;
+		content.appendChild(paragraph);
+	}
 
 	const img = document.createElement("img");
 	img.src = image;
-	img.alt = title;
+	img.alt = title || "Recuerdo";
 	img.loading = "lazy";
+	img.addEventListener("error", () => {
+		panel.remove();
+		ensureFinalButton();
+	});
 
-	content.append(img, heading, paragraph);
+	content.prepend(img);
 	panel.appendChild(content);
 
 	return panel;
@@ -51,22 +81,10 @@ const appendPanels = () => {
 	if (!albumTrack || !albumEnd) return;
 	memorySlides.forEach((slide) => {
 		const panel = createPanel(slide);
-		albumTrack.insertBefore(panel, albumEnd);
+		if (panel) albumTrack.insertBefore(panel, albumEnd);
 	});
 };
 
-const initInfiniteScroll = () => {
-	if (!albumTrack) return;
-	albumTrack.addEventListener("scroll", () => {
-		const threshold = 240;
-		const nearBottom =
-			albumTrack.scrollTop + albumTrack.clientHeight >=
-			albumTrack.scrollHeight - threshold;
-		if (nearBottom) {
-			appendPanels();
-		}
-	});
-};
 
 const activateAlbum = () => {
 	const album = document.getElementById("album");
@@ -79,7 +97,6 @@ const activateAlbum = () => {
 };
 
 appendPanels();
-appendPanels();
-initInfiniteScroll();
+const finalBtn = ensureFinalButton();
 initBox3D({ onOpen: activateAlbum });
-initEffects(finalBtn);
+if (finalBtn) initEffects(finalBtn);

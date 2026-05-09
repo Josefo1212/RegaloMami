@@ -1,43 +1,42 @@
 export function initEffects(button) {
 	if (!button) return;
 
-	const getHeartShape = () => {
-		if (typeof confetti?.shapeFromText !== "function") return null;
-		return confetti.shapeFromText({
-			text: "<3",
-			scalar: 1.2,
-		});
-	};
+	const burstDuration = 1800;
+	const colors = ["#ef4444", "#f472b6", "#f9a8d4", "#fecdd3"];
 
-	const launchHearts = () => {
+	const runBurst = () => {
 		if (typeof confetti !== "function") return;
-		const heart = getHeartShape();
-		const count = 120;
-		const defaults = {
-			spread: 120,
-			ticks: 200,
-			gravity: 0.9,
-			decay: 0.92,
-			startVelocity: 35,
-			colors: ["#ef4444", "#f472b6", "#f9a8d4", "#fecdd3"],
+		const end = Date.now() + burstDuration;
+
+		const frame = () => {
+			confetti({
+				particleCount: 6,
+				startVelocity: 40,
+				spread: 120,
+				ticks: 160,
+				gravity: 0.85,
+				decay: 0.92,
+				origin: { x: Math.random() * 0.6 + 0.2, y: 0.6 },
+				colors,
+			});
+
+			if (Date.now() < end) {
+				requestAnimationFrame(frame);
+			}
 		};
 
-		if (heart) {
-			confetti({
-				...defaults,
-				particleCount: count,
-				shapes: [heart],
-				scalar: 1.2,
-				origin: { x: 0.5, y: 0.6 },
-			});
-		} else {
-			confetti({
-				...defaults,
-				particleCount: count,
-				origin: { x: 0.5, y: 0.6 },
-			});
-		}
+		requestAnimationFrame(frame);
 	};
 
-	button.addEventListener("click", launchHearts);
+	const triggerFinale = () => {
+		if (button.dataset.finalized === "true") return;
+		button.dataset.finalized = "true";
+		button.textContent = "¡TE AMO INFINITO!";
+		button.style.transform = "scale(1.1)";
+		button.style.transition = "transform 0.25s ease";
+		button.style.willChange = "transform";
+		runBurst();
+	};
+
+	button.addEventListener("click", triggerFinale);
 }
