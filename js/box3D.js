@@ -7,6 +7,8 @@ export function initBox3D({ onOpen }) {
 	let last = null;
 	let start = null;
 	let startTime = 0;
+	let isMouseDown = false;
+	let mouseLast = null;
 
 	const applyRotation = () => {
 		box.style.setProperty("--rx", `${rotX}deg`);
@@ -19,6 +21,7 @@ export function initBox3D({ onOpen }) {
 		box.classList.add("is-open");
 		box.dispatchEvent(new CustomEvent("box:open"));
 		if (typeof onOpen === "function") onOpen();
+		window.setTimeout(() => box.classList.add("is-vanish"), 1200);
 	};
 
 	const onTouchStart = (event) => {
@@ -51,10 +54,39 @@ export function initBox3D({ onOpen }) {
 		start = null;
 	};
 
+	const onMouseDown = (event) => {
+		if (event.button !== 0) return;
+		event.preventDefault();
+		isMouseDown = true;
+		mouseLast = { x: event.clientX, y: event.clientY };
+	};
+
+	const onMouseMove = (event) => {
+		if (!isMouseDown || !mouseLast) return;
+		const dx = event.clientX - mouseLast.x;
+		const dy = event.clientY - mouseLast.y;
+		rotY += dx * 0.35;
+		rotX -= dy * 0.35;
+		rotX = Math.max(-45, Math.min(35, rotX));
+		applyRotation();
+		mouseLast = { x: event.clientX, y: event.clientY };
+	};
+
+	const onMouseUp = () => {
+		isMouseDown = false;
+		mouseLast = null;
+	};
+
 	box.addEventListener("touchstart", onTouchStart, { passive: true });
 	box.addEventListener("touchmove", onTouchMove, { passive: true });
 	box.addEventListener("touchend", onTouchEnd);
-	box.addEventListener("click", openBox);
+	box.addEventListener("mousedown", onMouseDown);
+	window.addEventListener("mousemove", onMouseMove);
+	window.addEventListener("mouseup", onMouseUp);
+	box.addEventListener("dblclick", (event) => {
+		event.preventDefault();
+		openBox();
+	});
 
 	applyRotation();
 }

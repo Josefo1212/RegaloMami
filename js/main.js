@@ -7,18 +7,18 @@ const finalBtn = document.getElementById("finalBtn");
 
 const memorySlides = [
 	{
-		title: "Tu sonrisa ilumina todo",
-		text: "Gracias por cada consejo y cada abrazo en silencio.",
+		title: "",
+		text: "",
 		image: "image/foto-1.jpg",
 	},
 	{
-		title: "Siempre estas presente",
-		text: "Tu fuerza se siente en cada paso que damos.",
+		title: "",
+		text: "",
 		image: "image/foto-2.jpg",
 	},
 	{
-		title: "El hogar eres tu",
-		text: "Contigo, cualquier lugar se vuelve calido.",
+		title: "",
+		text: "",
 		image: "image/foto-3.jpg",
 	},
 ];
@@ -41,7 +41,7 @@ const createPanel = ({ title, text, image }) => {
 	img.alt = title;
 	img.loading = "lazy";
 
-	content.append(heading, paragraph, img);
+	content.append(img, heading, paragraph);
 	panel.appendChild(content);
 
 	return panel;
@@ -69,9 +69,12 @@ const initInfiniteScroll = () => {
 };
 
 const activateAlbum = () => {
-	document.body.classList.add("phase-album");
 	const album = document.getElementById("album");
-	if (album) album.setAttribute("aria-hidden", "false");
+	if (album) {
+		album.style.display = "block";
+		album.setAttribute("aria-hidden", "false");
+	}
+	document.body.classList.add("phase-album");
 	if (albumTrack) albumTrack.scrollTo({ top: 0, behavior: "auto" });
 };
 

@@ -19,7 +19,7 @@ export function initEffects(button) {
 			gravity: 0.9,
 			decay: 0.92,
 			startVelocity: 35,
-			colors: ["#f6d0d4", "#f7b3c2", "#e06e7f", "#ffffff"],
+			colors: ["#ef4444", "#f472b6", "#f9a8d4", "#fecdd3"],
 		};
 
 		if (heart) {
