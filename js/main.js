@@ -11,15 +11,20 @@ const memorySlides = [
 		image: "image/foto1.jpg",
 	},
 	{
-		title: "No importa cuanto creza",
+		title: "No importa cuanto crezca",
 		text: "Sin importar el tamaño o la edad que tenga, siempre sere tu bebe, tu niño, tu hijo.",
 		image: "image/foto2.jpg",
 	},
 	{
 		title: "Mi mayor ejemplo",
-		text: "Eres el ejemplo de que todo es posible con esfuerzo y dedicanión. Gracias por enseñarme a nunca rendirme.",
+		text: "Eres el ejemplo de que todo es posible con esfuerzo y dedicación. Gracias por enseñarme a nunca rendirme.",
 		image: "image/foto3.jpg",
 	},
+	{
+		title: "Gracias a ti",
+		text: "Gracias por apoyarme siempre, gracias a ti soy el hombre que soy hoy.",
+		image: "image/foto4.jpg",
+	}
 ];
 
 const ensureFinalButton = () => {
