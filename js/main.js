@@ -24,6 +24,21 @@ const memorySlides = [
 		title: "Gracias a ti",
 		text: "Gracias por apoyarme siempre, gracias a ti soy el hombre que soy hoy.",
 		image: "image/foto4.jpg",
+	},
+	{
+		title: "La mejor del mundo",
+		text: "Eres la mejor mama del mundo, gracias por todo mami, te amo demasiado.",
+		image: "image/foto5.jpg",
+	},
+	{
+		title: "Nunca dejes de ser tu",
+		text: "Eres unica e increible mami, nunca dejes de luchar ni dejes que se apague tu sonrisa y tu brillo.",
+		image: "image/foto6.jpg",
+	},
+	{
+		title: "El final de un viaje",
+		text: "Que me falte todo, menos esos abrazos que siempre me han ayudado, siempre seras mi mama, mi mejor amiga, mi pilar, mi fuerza, te amo mama.",
+		image: "image/foto7.jpg",
 	}
 ];
 
@@ -35,7 +50,7 @@ const ensureFinalButton = () => {
 		button.id = "finalBtn";
 		button.className = "final-btn";
 		button.type = "button";
-		button.textContent = "Pulsame, Mama";
+		button.textContent = "Toca para finalizar mami";
 	}
 	const panelContent = albumEnd.querySelector(".panel-content");
 	if (panelContent) {
@@ -76,7 +91,12 @@ const createPanel = ({ title, text, image }) => {
 		ensureFinalButton();
 	});
 
-	content.prepend(img);
+	const photoFrame = document.createElement("div");
+	photoFrame.className = "photo-frame";
+	photoFrame.style.setProperty("--photo", `url("${image}")`);
+	photoFrame.appendChild(img);
+
+	content.prepend(photoFrame);
 	panel.appendChild(content);
 
 	return panel;

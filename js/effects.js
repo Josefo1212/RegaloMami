@@ -31,7 +31,7 @@ export function initEffects(button) {
 	const triggerFinale = () => {
 		if (button.dataset.finalized === "true") return;
 		button.dataset.finalized = "true";
-		button.textContent = "¡TE AMO INFINITO!";
+		button.textContent = "¡FEliz dia de las madres, TE AMO!";
 		button.style.transform = "scale(1.1)";
 		button.style.transition = "transform 0.25s ease";
 		button.style.willChange = "transform";
